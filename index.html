@@ -1,0 +1,87 @@
+<!doctype html>
+<html>
+<head>
+    <title>The Nilson Experiment</title>
+    <meta charset="utf-8" />
+    <meta name="description" content="The Nilson is an experiment to nilson the nilson to the top" />
+    <meta name="author" content="Nilson" />
+    <style>
+    html, body {
+        overflow: hidden;
+    }
+    </style>
+</head>
+<body>
+    <header>
+        <!-- <h1>Nilson</h1>
+        <p>All hail the Nilson</p> -->
+    </header>
+    
+    <script>
+    (function(n,i,l,s,o,n){
+
+        var ww = window.innerWidth
+        var wh = window.innerHeight
+        var src = 'https://cloud.githubusercontent.com/assets/97396/13076133/81f8754e-d4b0-11e5-8b28-54ea61c525d8.png'
+        var nilsons = []
+
+        function Nilson (src) {
+            this.image = new Image()
+            this.image.src = src
+            this.width = 24 + Math.floor(Math.random() * 24)
+            this.speedX = Math.floor(Math.random() * 20) - 10
+            this.speedY = Math.floor(Math.random() * 20) - 10
+            this.render()
+        }
+
+        Nilson.prototype.render = function () {
+            this.style = this.image.style
+            this.style.position = 'absolute'
+            this.style.width = this.width + 'px'
+            this.style.left = Math.floor(Math.random() * window.innerWidth) + 'px'
+            this.style.top = Math.floor(Math.random() * window.innerHeight) + 'px'
+            this.style.opacity = 0.3 + Math.random()
+            document.body.appendChild(this.image)
+        }
+
+        for (var i = 0; i < 17; i++) {
+            nilsons.push(new Nilson(src))
+        }
+
+        function loop () {
+            requestAnimationFrame(loop);
+            nilsons.forEach(function(nilson){
+                var left    = parseInt(nilson.style.left, 10)
+                var top     = parseInt(nilson.style.top, 10)
+                var newLeft = left + nilson.speedX
+                var newTop  = top + nilson.speedY
+                var right   = newLeft + nilson.width
+                var bottom  = newTop + nilson.image.height
+
+                if (left <= 0) {
+                    newLeft = 1
+                    nilson.speedX = Math.abs(nilson.speedX)
+                } else if (right >= window.innerWidth) {
+                    newLeft = window.innerWidth - nilson.width
+                    nilson.speedX = -Math.abs(nilson.speedX) // reverse direction
+                }
+
+                if (top <= 0) {
+                    newTop = 1
+                    nilson.speedY = Math.abs(nilson.speedY)
+                } else if (bottom >= window.innerHeight) {
+                    newTop = window.innerHeight - nilson.image.height
+                    nilson.speedY = -Math.abs(nilson.speedY)
+                }
+
+                nilson.style.left = newLeft + 'px'
+                nilson.style.top = newTop + 'px'
+            })
+        }
+
+        loop()
+
+    })();
+    </script>
+</body>
+</html>
